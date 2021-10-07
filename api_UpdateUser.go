@@ -10,30 +10,58 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+UpdateUser
+Updates a user record from the organization. No roles are needed to access the endpoint.
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can update a user record for any Organization.
+Admin User - Can only update a user record for users that belongs to the same Organization.
+Regular User - Can only update its own user record.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) UpdateUser(username string, localVarOptionals *types.UpdateUserOpts) (types.UpdatedUserResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarHttpMethod  = strings.ToUpper("Put")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.UpdatedUserResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
+	localVarPath := a.Cfg.BasePath + "/org/{organization}/user/{username}"
 	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", fmt.Sprintf("%v", username), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.Active.IsSet() {
+		localVarQueryParams.Add("active", parameterToString(localVarOptionals.Active.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.NewUsername.IsSet() {
+		localVarQueryParams.Add("new_username", parameterToString(localVarOptionals.NewUsername.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.OrgShortname.IsSet() {
+		localVarQueryParams.Add("org_shortname", parameterToString(localVarOptionals.OrgShortname.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.NameFirst.IsSet() {
+		localVarQueryParams.Add("name.first", parameterToString(localVarOptionals.NameFirst.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.NameLast.IsSet() {
+		localVarQueryParams.Add("name.last", parameterToString(localVarOptionals.NameLast.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.NameMiddle.IsSet() {
+		localVarQueryParams.Add("name.middle", parameterToString(localVarOptionals.NameMiddle.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.NameSuffix.IsSet() {
+		localVarQueryParams.Add("name.suffix", parameterToString(localVarOptionals.NameSuffix.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.ActiveRolesAdd.IsSet() {
+		localVarQueryParams.Add("active_roles.add", parameterToString(localVarOptionals.ActiveRolesAdd.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.ActiveRolesRemove.IsSet() {
+		localVarQueryParams.Add("active_roles.remove", parameterToString(localVarOptionals.ActiveRolesRemove.Value(), ""))
+	}
 	localVarHttpContentTypes := []string{}
 
 	// set Content-Type header
@@ -78,7 +106,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.UpdatedUserResponse
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

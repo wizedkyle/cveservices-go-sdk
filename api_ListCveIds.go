@@ -1,7 +1,6 @@
 package cveservices_go_sdk
 
 import (
-	"fmt"
 	"github.com/wizedkyle/cveservices-go-sdk/types"
 	"io/ioutil"
 	"net/http"
@@ -10,30 +9,51 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+ListCveIds
+Lists all CVE Ids associated to an entity. No roles are needed to access the endpoint.
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can see CVE-IDs owned by any Organization.
+Admin User - Can only see CVE-IDs owned by the Organization it belongs to.
+Regular User - Can only see CVE-IDs owned by the Organization it belongs to.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) ListCveIds(localVarOptionals *types.ListCveIdsOpts) (types.ListCveIdsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.ListCveIdsResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
-	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
+	localVarPath := a.Cfg.BasePath + "/cve-id"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.State.IsSet() {
+		localVarQueryParams.Add("state", parameterToString(localVarOptionals.State.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.CveIdYear.IsSet() {
+		localVarQueryParams.Add("cve_id_year", parameterToString(localVarOptionals.CveIdYear.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimeReservedLt.IsSet() {
+		localVarQueryParams.Add("time_reserved.lt", parameterToString(localVarOptionals.TimeReservedLt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimeReservedGt.IsSet() {
+		localVarQueryParams.Add("time_reserved.gt", parameterToString(localVarOptionals.TimeReservedGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimeModifiedLt.IsSet() {
+		localVarQueryParams.Add("time_modified.lt", parameterToString(localVarOptionals.TimeModifiedLt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TimeModifiedGt.IsSet() {
+		localVarQueryParams.Add("time_modified.gt", parameterToString(localVarOptionals.TimeModifiedGt.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	}
+	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
 	// set Content-Type header
@@ -78,7 +98,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.ListCveIdsResponse
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
