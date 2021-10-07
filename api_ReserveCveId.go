@@ -1,7 +1,6 @@
 package cveservices_go_sdk
 
 import (
-	"fmt"
 	"github.com/wizedkyle/cveservices-go-sdk/types"
 	"io/ioutil"
 	"net/http"
@@ -10,30 +9,36 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+ReserveCveId
+Reserves a CVE ID for the organization. At least one of the following roles are needed to access the endpoint:
+CNA - The user must belong to an Organization with the “CNA” role.
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can reserve CVE-IDs for any Organization.
+CNA - Can only reserve CVE-IDs for its Organization.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) ReserveCveId(amount int32, cveYear int32, localVarOptionals *types.ReserveCveIdOpts) (types.ReserveCveIdResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.ReserveCveIdResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
-	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
+	localVarPath := a.Cfg.BasePath + "/cve-id"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.BatchType.IsSet() {
+		localVarQueryParams.Add("batch_type", parameterToString(localVarOptionals.BatchType.Value(), ""))
+	}
+	localVarQueryParams.Add("amount", parameterToString(amount, ""))
+	localVarQueryParams.Add("cve_year", parameterToString(cveYear, ""))
+	localVarQueryParams.Add("short_name", parameterToString(a.Cfg.Organization, ""))
+	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
 	// set Content-Type header
@@ -78,7 +83,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.ReserveCveIdResponse
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

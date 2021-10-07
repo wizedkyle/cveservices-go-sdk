@@ -10,25 +10,25 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+GetCveId
+Retrieves a CVE-ID record by the ID. It can be a cve id the entity doesn't own if it is in a PUBLISHED or REJECTED state. No roles needed to access the endpoint
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can see the full information of a CVE-ID owned by any Organization.
+Admin User - Can see full information of a CVE-ID owned by the Organization it belongs to, and can only see partial information of a CVE-ID in the “PUBLISHED” or “REJECTED” state that is owned by another Organization.
+Regular User - Can see full information of a CVE-ID owned by the Organization it belongs to, and can only see partial information of a CVE-ID in the “PUBLISHED” or “REJECTED” state that is owned by another Organization.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) GetCveId(cveId string) (types.CveId, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.CveId
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
-	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
+	localVarPath := a.Cfg.BasePath + "/cve-id/{cve-id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"cve-id"+"}", fmt.Sprintf("%v", cveId), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -78,7 +78,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.CveId
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

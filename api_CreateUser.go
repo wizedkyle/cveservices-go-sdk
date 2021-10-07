@@ -10,25 +10,27 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+CreateUser
+Create a new user in the organization. At least one of the following roles are needed to access the endpoint:
+SECRETARIAT - The user must belong to an Organization with the “SECRETARIAT” role.
+ADMIN - The user must have the “ADMIN” role and must belong to the same Organization as the new user.
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can create a user record for any Organization.
+Admin User - Can only create a user record for users that belongs to the same Organization.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) CreateUser(username string, body types.CreateUserRequest) (types.CreateUserResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.CreateUserResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
+	localVarPath := a.Cfg.BasePath + "/org/{organization}/user/{username}"
 	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", fmt.Sprintf("%v", username), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -50,6 +52,8 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
+	// body params
+	localVarPostBody = &body
 	r, err := a.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -78,7 +82,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.UserNoSecret
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

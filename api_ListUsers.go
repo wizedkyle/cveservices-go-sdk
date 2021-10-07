@@ -10,30 +10,33 @@ import (
 )
 
 /*
-CheckIdQuota
-Checks the ID quotas for the organization. No roles are needed to access the endpoint.
+ListUsers
+Retrieves all user records from the organization. No roles are needed to access the endpoint.
 Expected Behavior:
-Secretariat - Can see the CVE ID quota information of any Organization.
-Admin User - Can only see the CVE ID quota information of the Organization it belongs to.
-User - Can only see the CVE ID quota information of the Organization it belongs to.
+Secretariat - Can see the information of a user of any Organization.
+Admin User - Can only see the information of a user that belongs to the same Organization.
+Regular User - Can only see the information of a user that belongs to the same Organization.
 */
-func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error) {
+func (a *APIClient) ListUsers(localVarOptionals *types.ListUsersOpts) (types.ListUsersResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.IdQuotaResponse
+		localVarReturnValue types.ListUsersResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/id_quota"
+	localVarPath := a.Cfg.BasePath + "/org/{organization}/users"
 	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	}
 	localVarHttpContentTypes := []string{}
 
 	// set Content-Type header
@@ -78,7 +81,7 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.IdQuotaResponse
+			var v types.ListUsersResponse
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
