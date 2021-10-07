@@ -90,6 +90,11 @@ func (a *APIClient) CheckIdQuota() (types.IdQuotaResponse, *http.Response, error
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
 			}
+			if v.Message != "" {
+				newErr.error = v.Message
+			} else {
+				newErr.error = v.Message
+			}
 			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
