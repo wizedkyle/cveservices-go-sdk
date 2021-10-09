@@ -72,6 +72,7 @@ type RequestedBy struct {
 }
 
 type ReserveCveIdOpts struct {
+	// Valid values are sequential or non-sequential
 	BatchType optional.String
 }
 
