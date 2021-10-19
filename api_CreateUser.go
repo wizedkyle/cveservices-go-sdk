@@ -2,11 +2,12 @@ package cveservices_go_sdk
 
 import (
 	"fmt"
-	"github.com/wizedkyle/cveservices-go-sdk/types"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/wizedkyle/cveservices-go-sdk/types"
 )
 
 /*
@@ -18,7 +19,7 @@ Expected Behavior:
 Secretariat - Can create a user record for any Organization.
 Admin User - Can only create a user record for users that belongs to the same Organization.
 */
-func (a *APIClient) CreateUser(username string, body types.CreateUserRequest) (types.CreateUserResponse, *http.Response, error) {
+func (a *APIClient) CreateUser(body types.CreateUserRequest) (types.CreateUserResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -28,9 +29,8 @@ func (a *APIClient) CreateUser(username string, body types.CreateUserRequest) (t
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/org/{organization}/user/{username}"
+	localVarPath := a.Cfg.BasePath + "/org/{organization}/user"
 	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", fmt.Sprintf("%v", username), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

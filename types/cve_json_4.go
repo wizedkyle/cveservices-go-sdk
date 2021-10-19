@@ -85,5 +85,7 @@ type ProductVersionVersionData struct {
 }
 
 type Reference struct {
-	Url string `json:"url"`
+	Name      string `json:"name"`
+	RefSource string `json:"refsource"`
+	Url       string `json:"url"`
 }

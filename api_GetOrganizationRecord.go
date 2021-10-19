@@ -1,6 +1,7 @@
 package cveservices_go_sdk
 
 import (
+	"fmt"
 	"github.com/wizedkyle/cveservices-go-sdk/types"
 	"io/ioutil"
 	"net/http"
@@ -27,6 +28,7 @@ func (a *APIClient) GetOrganizationRecord() (types.Organization, *http.Response,
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/org/{organization}"
+	localVarPath = strings.Replace(localVarPath, "{"+"organization"+"}", fmt.Sprintf("%v", a.Cfg.Organization), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
