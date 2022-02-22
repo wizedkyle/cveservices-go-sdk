@@ -13,7 +13,7 @@ import (
 /*
 CreateCveRecord
 */
-func (a *APIClient) CreateCveRecord(cveId string) (types.CveJson4, *http.Response, error) {
+func (a *APIClient) CreateCveRecord(body interface{}, cveId string) (types.CveJson4, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -48,6 +48,7 @@ func (a *APIClient) CreateCveRecord(cveId string) (types.CveJson4, *http.Respons
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
+	localVarPostBody = &body
 	r, err := a.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
