@@ -1,6 +1,7 @@
 package cveservices_go_sdk
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -10,13 +11,9 @@ import (
 	"github.com/wizedkyle/cveservices-go-sdk/types"
 )
 
-/*
-GetCveRecord
-
-*/
-func (a *APIClient) GetCveRecord(cveId string) (types.CveJson4, *http.Response, error) {
+func (a *APIClient) CveSubmit(ctx context.Context, cVEAPIORG string, cVEAPIKEY string, cVEAPIUSER string, cveId string) (types.CveJson4, *http.Response, error) {
 	var (
-		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
@@ -48,7 +45,10 @@ func (a *APIClient) GetCveRecord(cveId string) (types.CveJson4, *http.Response, 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	localVarHeaderParams["CVE-API-ORG"] = parameterToString(cVEAPIORG, "")
+	localVarHeaderParams["CVE-API-KEY"] = parameterToString(cVEAPIKEY, "")
+	localVarHeaderParams["CVE-API-USER"] = parameterToString(cVEAPIUSER, "")
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
