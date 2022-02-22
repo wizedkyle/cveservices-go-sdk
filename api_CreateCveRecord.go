@@ -13,7 +13,7 @@ import (
 /*
 CreateCveRecord
 */
-func (a *APIClient) CreateCveRecord(cVEAPIORG string, cVEAPIKEY string, cVEAPIUSER string, cveId string) (types.CveJson4, *http.Response, error) {
+func (a *APIClient) CreateCveRecord(cveId string) (types.CveJson4, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
