@@ -1,9 +1,9 @@
 package types
 
 type CveJson4 struct {
-	DataType    *interface{}         `json:"data_type"`
-	DataFormat  *interface{}         `json:"data_format"`
-	DataVersion *interface{}         `json:"data_version"`
+	DataType    string               `json:"data_type"`
+	DataFormat  string               `json:"data_format"`
+	DataVersion string               `json:"data_version"`
 	CVEDataMeta *CveJson4CveDataMeta `json:"CVE_data_meta"`
 	Affects     *CveJson4Affects     `json:"affects"`
 	Problemtype *CveJson4Problemtype `json:"problemtype"`
