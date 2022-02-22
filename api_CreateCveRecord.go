@@ -1,6 +1,7 @@
 package cveservices_go_sdk
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -21,6 +22,8 @@ func (a *APIClient) CreateCveRecord(body interface{}, cveId string) (types.CveJs
 		localVarFileBytes   []byte
 		localVarReturnValue types.CveJson4
 	)
+
+	fmt.Println(json.MarshalIndent(body, "    ", ""))
 
 	// create path and map variables
 	localVarPath := a.Cfg.BasePath + "/cve/{cve-id}"
