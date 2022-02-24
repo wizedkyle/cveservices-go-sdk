@@ -46,10 +46,11 @@ type CveJson5Affected struct {
 }
 
 type CveJson5Versions struct {
-	Version     string `json:"version"`
-	Status      string `json:"status"`
-	LessThan    string `json:"lessThan"`
-	VersionType string `json:"versionType"`
+	Version         string `json:"version"`
+	Status          string `json:"status"`
+	LessThan        string `json:"lessThan"`
+	LessThanOrEqual string `json:"lessThanOrEqual"`
+	VersionType     string `json:"versionType"`
 }
 
 type CveJson5References struct {
