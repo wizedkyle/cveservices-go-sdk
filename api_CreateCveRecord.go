@@ -2,6 +2,7 @@ package cveservices_go_sdk
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -53,6 +54,8 @@ func (a *APIClient) CreateCveRecord(body interface{}, cveId string) (types.CveJs
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
+	test, err := io.ReadAll(r.Body)
+	fmt.Println(len(test))
 
 	localVarHttpResponse, err := a.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
