@@ -49,7 +49,7 @@ type CveJson5Versions struct {
 	Version         string `json:"version"`
 	Status          string `json:"status"`
 	LessThan        string `json:"lessThan"`
-	LessThanOrEqual string `json:"lessThanOrEqual"`
+	LessThanOrEqual string `json:"lessThanOrEqual"t`
 	VersionType     string `json:"versionType"`
 }
 
