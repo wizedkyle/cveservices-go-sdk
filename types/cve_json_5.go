@@ -1,6 +1,11 @@
 package types
 
-type CveJson5Basic struct {
+type CveJson5Response struct {
+	Message string   `json:"message"`
+	Created CveJson5 `json:"created"`
+}
+
+type CveJson5 struct {
 	DataType    string              `json:"dataType"`
 	DataVersion string              `json:"dataVersion"`
 	CveMetadata CveJson5CveMetadata `json:"cveMetadata"`
@@ -10,7 +15,7 @@ type CveJson5Basic struct {
 type CveJson5CveMetadata struct {
 	Assigner      string `json:"assigner"`
 	CveId         string `json:"id"`
-	AssignerOrgId string `json:"assignerOrgId"`
+	AssignerOrgId string `json:"assignerOrgId,omitempty"`
 	State         string `json:"state"`
 }
 
@@ -27,7 +32,7 @@ type CveJson5Cna struct {
 }
 
 type CveJson5ProviderMetadata struct {
-	Id string `json:"Id"`
+	Id string `json:"id"`
 }
 
 type CveJson5ProblemTypes struct {
@@ -37,7 +42,6 @@ type CveJson5ProblemTypes struct {
 type CveJson5Descriptions struct {
 	Lang  string `json:"lang"`
 	Value string `json:"value"`
-	Type  string `json:"type"`
 }
 
 type CveJson5ProblemTypeDescriptions struct {
