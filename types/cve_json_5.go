@@ -8,7 +8,8 @@ type CveJson5Basic struct {
 }
 
 type CveJson5CveMetadata struct {
-	CveId         string `json:"cveId"`
+	Assigner      string `json:"assigner"`
+	CveId         string `json:"id"`
 	AssignerOrgId string `json:"assignerOrgId"`
 	State         string `json:"state"`
 }
@@ -26,14 +27,20 @@ type CveJson5Cna struct {
 }
 
 type CveJson5ProviderMetadata struct {
-	OrgId string `json:"orgId"`
+	Id string `json:"Id"`
 }
 
 type CveJson5ProblemTypes struct {
-	Descriptions []CveJson5Descriptions `json:"descriptions"`
+	Descriptions []CveJson5ProblemTypeDescriptions `json:"descriptions"`
 }
 
 type CveJson5Descriptions struct {
+	Lang  string `json:"lang"`
+	Value string `json:"value"`
+	Type  string `json:"type"`
+}
+
+type CveJson5ProblemTypeDescriptions struct {
 	Lang        string `json:"lang"`
 	Description string `json:"description"`
 }
@@ -54,5 +61,6 @@ type CveJson5Versions struct {
 }
 
 type CveJson5References struct {
-	Url string `json:"url"`
+	Name string `json:"name"`
+	Url  string `json:"url"`
 }

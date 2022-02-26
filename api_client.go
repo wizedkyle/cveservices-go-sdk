@@ -260,24 +260,15 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 	}
 
 	if reader, ok := body.(io.Reader); ok {
-		fmt.Println("io.Reader here")
 		_, err = bodyBuf.ReadFrom(reader)
 	} else if b, ok := body.([]byte); ok {
-		fmt.Println("body byte here")
 		_, err = bodyBuf.Write(b)
 	} else if s, ok := body.(string); ok {
-		fmt.Println("body string")
 		_, err = bodyBuf.WriteString(s)
 	} else if s, ok := body.(*string); ok {
-		fmt.Println("write string")
 		_, err = bodyBuf.WriteString(*s)
 	} else if jsonCheck.MatchString(contentType) {
-		fmt.Println("json match string")
-		bodyJson, err := json.Marshal(body)
-		if err != nil {
-			fmt.Println(err)
-		}
-		bodyBuf = bytes.NewBuffer(bodyJson)
+		err = json.NewEncoder(bodyBuf).Encode(body)
 	} else if xmlCheck.MatchString(contentType) {
 		xml.NewEncoder(bodyBuf).Encode(body)
 	}
