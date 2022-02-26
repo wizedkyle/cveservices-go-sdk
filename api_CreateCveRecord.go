@@ -48,7 +48,7 @@ func (a *APIClient) CreateCveRecord(body interface{}, cveId string) (types.CveJs
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 
-	localVarPostBody = body
+	localVarPostBody = &body
 	r, err := a.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
