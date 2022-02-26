@@ -268,7 +268,11 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 	} else if s, ok := body.(*string); ok {
 		_, err = bodyBuf.WriteString(*s)
 	} else if jsonCheck.MatchString(contentType) {
-		err = json.NewEncoder(bodyBuf).Encode(body)
+		bodyJson, err := json.Marshal(body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		bodyBuf = bytes.NewBuffer(bodyJson)
 	} else if xmlCheck.MatchString(contentType) {
 		xml.NewEncoder(bodyBuf).Encode(body)
 	}
