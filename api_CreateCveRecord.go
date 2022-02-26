@@ -54,6 +54,7 @@ func (a *APIClient) CreateCveRecord(body interface{}, cveId string) (types.CveJs
 		return localVarReturnValue, nil, err
 	}
 	fmt.Println(r.Body)
+	fmt.Println(r.Header)
 
 	localVarHttpResponse, err := a.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
