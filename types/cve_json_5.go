@@ -53,7 +53,7 @@ type CveJson5Affected struct {
 	Vendor        string             `json:"vendor"`
 	Product       string             `json:"product"`
 	Versions      []CveJson5Versions `json:"versions"`
-	DefaultStatus string             `json:"defaultStatus"`
+	DefaultStatus string             `json:"defaultStatus,omitempty"`
 }
 
 type CveJson5Versions struct {
