@@ -53,8 +53,6 @@ func (a *APIClient) CreateCveRecord(body types.CveJson5, cveId string) (types.Cv
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
-	fmt.Println(r.Body)
-	fmt.Println(r.Header)
 
 	localVarHttpResponse, err := a.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
@@ -66,7 +64,6 @@ func (a *APIClient) CreateCveRecord(body types.CveJson5, cveId string) (types.Cv
 	if err != nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
-	fmt.Println(string(localVarBody))
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
