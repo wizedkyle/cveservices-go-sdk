@@ -14,13 +14,13 @@ import (
 GetCveRecord
 
 */
-func (a *APIClient) GetCveRecord(cveId string) (types.CveJson4, *http.Response, error) {
+func (a *APIClient) GetCveRecord(cveId string) (types.CveJson5, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.CveJson4
+		localVarReturnValue types.CveJson5
 	)
 
 	// create path and map variables
@@ -77,7 +77,7 @@ func (a *APIClient) GetCveRecord(cveId string) (types.CveJson4, *http.Response, 
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.CveJson4
+			var v types.CveJson5
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
