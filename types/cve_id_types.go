@@ -1,8 +1,9 @@
 package types
 
 import (
-	"github.com/antihax/optional"
 	"time"
+
+	"github.com/antihax/optional"
 )
 
 type CveId struct {
@@ -78,4 +79,9 @@ type ReserveCveIdOpts struct {
 
 type ReserveCveIdResponse struct {
 	CveIds *[]CveIdNoTime `json:"cve_ids,omitempty"`
+}
+
+type UpdateCveIdRecordOpts struct {
+	State optional.String
+	Org   optional.String
 }
