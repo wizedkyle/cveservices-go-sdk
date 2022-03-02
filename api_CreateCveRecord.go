@@ -1,6 +1,7 @@
 package cveservices_go_sdk
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -10,35 +11,26 @@ import (
 )
 
 /*
-ReserveCveId
-Reserves a CVE ID for the organization. At least one of the following roles are needed to access the endpoint:
-CNA - The user must belong to an Organization with the “CNA” role.
-Expected Behavior:
-Secretariat - Can reserve CVE-IDs for any Organization.
-CNA - Can only reserve CVE-IDs for its Organization.
+CreateCveRecord
+Creates a CVE record by the CVE ID.
 */
-func (a *APIClient) ReserveCveId(amount int32, cveYear int32, localVarOptionals *types.ReserveCveIdOpts) (types.ReserveCveIdResponse, *http.Response, error) {
+func (a *APIClient) CreateCveRecord(body types.CveJson5, cveId string) (types.CveJson5Response, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue types.ReserveCveIdResponse
+		localVarReturnValue types.CveJson5Response
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/cve-id"
+	localVarPath := a.Cfg.BasePath + "/cve/{cve-id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"cve-id"+"}", fmt.Sprintf("%v", cveId), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.BatchType.IsSet() {
-		localVarQueryParams.Add("batch_type", parameterToString(localVarOptionals.BatchType.Value(), ""))
-	}
-	localVarQueryParams.Add("amount", parameterToString(amount, ""))
-	localVarQueryParams.Add("cve_year", parameterToString(cveYear, ""))
-	localVarQueryParams.Add("short_name", parameterToString(a.Cfg.Organization, ""))
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -56,6 +48,8 @@ func (a *APIClient) ReserveCveId(amount int32, cveYear int32, localVarOptionals 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
+
+	localVarPostBody = &body
 	r, err := a.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -84,7 +78,7 @@ func (a *APIClient) ReserveCveId(amount int32, cveYear int32, localVarOptionals 
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v types.ReserveCveIdResponse
+			var v types.CveJson5Response
 			err = a.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

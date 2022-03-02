@@ -1,14 +1,14 @@
 package types
 
 type CveJson4 struct {
-	DataType    *interface{}         `json:"data_type"`
-	DataFormat  *interface{}         `json:"data_format"`
-	DataVersion *interface{}         `json:"data_version"`
-	CVEDataMeta *CveJson4CveDataMeta `json:"CVE_data_meta"`
-	Affects     *CveJson4Affects     `json:"affects"`
-	Problemtype *CveJson4Problemtype `json:"problemtype"`
-	References  *CveJson4References  `json:"references"`
-	Description *CveJson4Description `json:"description"`
+	DataType    string                `json:"data_type"`
+	DataFormat  string                `json:"data_format"`
+	DataVersion string                `json:"data_version"`
+	CVEDataMeta *CveJson41CveDataMeta `json:"CVE_data_meta"`
+	Affects     *CveJson4Affects      `json:"affects"`
+	Problemtype *CveJson4Problemtype  `json:"problemtype"`
+	References  *CveJson4References   `json:"references"`
+	Description *CveJson4Description  `json:"description"`
 }
 
 type CveJson41 struct {
@@ -23,9 +23,9 @@ type CveJson41 struct {
 }
 
 type CveJson41CveDataMeta struct {
-	ID       string       `json:"ID"`
-	ASSIGNER string       `json:"ASSIGNER"`
-	STATE    *interface{} `json:"STATE,omitempty"`
+	ID       string `json:"ID"`
+	ASSIGNER string `json:"ASSIGNER"`
+	STATE    string `json:"STATE,omitempty"`
 }
 
 type CveJson4Affects struct {
