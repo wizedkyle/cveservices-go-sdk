@@ -71,6 +71,7 @@ func (a *APIClient) UpdateCveRecord(body types.CveJson5, cveId string, localVarO
 	if err != nil {
 		return localVarReturnValue, localVarHttpResponse, err
 	}
+	fmt.Println(string(localVarBody))
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
