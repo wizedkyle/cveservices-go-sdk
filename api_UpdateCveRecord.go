@@ -12,7 +12,7 @@ import (
 
 /*
 UpdateCveRecord
-
+Updates a CVE record by the CVE ID
 */
 func (a *APIClient) UpdateCveRecord(body types.CveJson5, cveId string, localVarOptionals *types.UpdateCveIdRecordOpts) (types.CveJson5Response, *http.Response, error) {
 	var (

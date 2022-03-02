@@ -1,11 +1,12 @@
 package cveservices_go_sdk
 
 import (
-	"github.com/wizedkyle/cveservices-go-sdk/types"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/wizedkyle/cveservices-go-sdk/types"
 )
 
 /*
@@ -15,9 +16,6 @@ CNA - The user must belong to an Organization with the “CNA” role.
 Expected Behavior:
 Secretariat - Can reserve CVE-IDs for any Organization.
 CNA - Can only reserve CVE-IDs for its Organization.
-Parameters:
-amount - The number of CVE IDs to reserve.
-cveYear - The year the CVE IDs will be reserved for.
 */
 func (a *APIClient) ReserveCveId(amount int32, cveYear int32, localVarOptionals *types.ReserveCveIdOpts) (types.ReserveCveIdResponse, *http.Response, error) {
 	var (

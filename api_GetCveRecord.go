@@ -12,7 +12,7 @@ import (
 
 /*
 GetCveRecord
-
+Retreives a CVE record by the CVE ID.
 */
 func (a *APIClient) GetCveRecord(cveId string) (types.CveJson5, *http.Response, error) {
 	var (

@@ -12,6 +12,7 @@ import (
 
 /*
 CreateCveRecord
+Creates a CVE record by the CVE ID.
 */
 func (a *APIClient) CreateCveRecord(body types.CveJson5, cveId string) (types.CveJson5Response, *http.Response, error) {
 	var (
