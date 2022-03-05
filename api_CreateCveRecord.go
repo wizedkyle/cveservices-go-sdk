@@ -24,7 +24,7 @@ func (a *APIClient) CreateCveRecord(body types.CveJson5, cveId string) (types.Cv
 	)
 
 	// create path and map variables
-	localVarPath := a.Cfg.BasePath + "/cve/{cve-id}"
+	localVarPath := a.Cfg.BasePath + "/cve/{cve-id}/cna"
 	localVarPath = strings.Replace(localVarPath, "{"+"cve-id"+"}", fmt.Sprintf("%v", cveId), -1)
 
 	localVarHeaderParams := make(map[string]string)
