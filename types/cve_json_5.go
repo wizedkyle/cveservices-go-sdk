@@ -28,7 +28,8 @@ type CveJson5Cna struct {
 }
 
 type CveJson5ProviderMetadata struct {
-	OrgId string `json:"orgId"`
+	OrgId     string `json:"orgId"`
+	ShortName string `json:"shortName,omitempty"`
 }
 
 type CveJson5ProblemTypes struct {
