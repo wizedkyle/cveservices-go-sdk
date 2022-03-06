@@ -9,7 +9,7 @@ type CveJson5 struct {
 	DataType    string              `json:"dataType"`
 	DataVersion string              `json:"dataVersion"`
 	CveMetadata CveJson5CveMetadata `json:"cveMetadata"`
-	Containers  CveJson5Containers  `json:"containers"`
+	Containers  CveJson5Cna         `json:"cnaContainer"`
 }
 
 type CveJson5CveMetadata struct {
@@ -17,10 +17,6 @@ type CveJson5CveMetadata struct {
 	CveId         string `json:"id"`
 	AssignerOrgId string `json:"assignerOrgId,omitempty"`
 	State         string `json:"state"`
-}
-
-type CveJson5Containers struct {
-	Cna CveJson5Cna `json:"cna"`
 }
 
 type CveJson5Cna struct {
