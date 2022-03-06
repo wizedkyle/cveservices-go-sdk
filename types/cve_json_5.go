@@ -13,10 +13,10 @@ type CveJson5 struct {
 }
 
 type CveJson5CveMetadata struct {
-	Assigner string `json:"assigner"`
-	CveId    string `json:"id"`
-	OrgId    string `json:"orgId"`
-	State    string `json:"state"`
+	Assigner      string `json:"assigner"`
+	CveId         string `json:"id"`
+	AssignerOrgId string `json:"assignerOrgId,omitempty"`
+	State         string `json:"state"`
 }
 
 type CveJson5Cna struct {
@@ -28,7 +28,7 @@ type CveJson5Cna struct {
 }
 
 type CveJson5ProviderMetadata struct {
-	Id string `json:"id"`
+	OrgId string `json:"orgId"`
 }
 
 type CveJson5ProblemTypes struct {
