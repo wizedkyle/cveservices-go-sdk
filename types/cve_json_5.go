@@ -15,7 +15,7 @@ type CveJson5 struct {
 type CveJson5CveMetadata struct {
 	Assigner string `json:"assigner"`
 	CveId    string `json:"id"`
-	orgId    string `json:"orgId"`
+	OrgId    string `json:"orgId"`
 	State    string `json:"state"`
 }
 
